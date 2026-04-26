@@ -80,6 +80,11 @@ jobs:
         run: |
           echo "kernel_version=$(make kernelversion | awk '/^[0-9]/ {print $1}')" >> "$GITHUB_OUTPUT"
           echo "date=$(date +%Y%m%d)" >> "$GITHUB_OUTPUT"
+          
+      - name: Apply custom kernel patch
+        run: |
+          echo "Applying 001.GKI-below-6.12-fix_sysvipc_kabi_6_7_8 patch..."
+          patch -p1 < patches/001.GKI-below-6.12-fix_sysvipc_kabi_6_7_8.patch
 
       - name: Compile the kernel
         run: |
